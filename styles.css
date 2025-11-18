@@ -1,0 +1,379 @@
+body {
+    /* Background Styles (Kept) */
+    background-image: url('resources/violet_fields.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+
+    
+    display: grid;
+    /* Columns: 1fr (Video space) | auto (Center Gap) | auto (Photo/Messages) | 1fr (Right Gap) */
+    grid-template-columns: 1fr auto auto 1fr; 
+    /* Rows: Header (auto) | Main Content (1fr) | Audio (auto) */
+    grid-template-rows: auto 1fr auto auto; 
+    height: 100vh; /* Make the body fill the viewport height */
+    overflow-y: auto; /* Allow scrolling if content exceeds viewport height */
+}
+
+
+/* --- Header & Heading Styling --- */
+
+header {
+    /* Span the header across all columns */
+    grid-column: 1 / -1;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Reduced vertical padding from 20px to 10px */
+    padding: 10px 0; 
+    margin-bottom: 30px;
+    border-bottom: 3px solid #f6d365;
+}
+
+.main-heading {
+    font-family: 'Cinzel', serif; 
+    font-size: 5vw;
+    font-weight: 700;
+    color: #ffd700;
+    text-shadow: 
+        0 0 15px #ff69b4,
+        0 0 30px #4b0082,
+        0 0 45px #000;
+    text-align: center;
+    padding: 15px 10px;
+    letter-spacing: 6px; 
+    margin: 0; 
+}
+
+/* The Modal (Overlay) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity - The faded background */
+    backdrop-filter: blur(5px); /* Optional: Adds a subtle blur to the background */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered horizontally */
+    padding: 30px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 600px; /* Limit size on large screens */
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+    position: relative;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Modal Animation */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+/* The Close Button */
+.close-btn {
+    color: #4b0082;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #ff69b4;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Style the text inside the modal */
+#modal-text {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    white-space: pre-wrap; /* Keeps any special formatting/line breaks */
+}
+
+/* Video Positioning (Left Center) */
+
+.video-card {
+    /* Inherit/match button styles */
+    background-color: #ffd700; /* Gold */
+    color: #4b0082; 
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 1.2;
+
+    /* Make it small and round */
+    width: 80px; 
+    height: 80px; 
+    border-radius: 50%;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    
+    padding: 5px; 
+    border: 4px solid #f6d365;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); 
+
+    cursor: pointer; 
+    transition: all 0.2s ease-in-out;
+}
+
+
+.video-card:hover {
+    transform: scale(1.1) translateY(-2px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    background-color: #ffc72c; 
+}
+
+/* Audio Player Positioning (Bottom Center, limited width) */
+.birthday-song {
+    
+    grid-row: 4;
+    grid-column: 2 / span 2; 
+    align-self: center;
+    justify-self: center;
+    
+    /* Specific Audio Styling */
+    display: block;
+    margin: 20px auto; 
+    max-width: 400px; /* Limit the width */
+    width: 100%;
+    
+    /* General Media Styling */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+}
+
+footer {
+    /* Place in the 5th row (the footer row) */
+    grid-row: 5; 
+    /* Span the footer across all five columns */
+    grid-column: 1 / -1; 
+    
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #ffd700;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    border-top: 1px solid #ff69b4;
+}
+
+/* --- Central Photo and Message Arrangement --- */
+
+.central-content {
+    
+    grid-row: 2;
+    grid-column: 2 / span 2; 
+    align-self: center; 
+    justify-self: center;
+    position: relative;
+    padding: 100px;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr); 
+    grid-template-rows: repeat(9, 1fr);
+    gap: 5px; 
+    padding: 20px; 
+    background-color: rgba(255, 255, 255, 0.2); 
+    border-radius: 10px;
+}
+
+/* Photo Styling (Center of the 3x3 grid) */
+.central-content img {
+    /* Place the image in the center cells: Spanning rows 2-4 and columns 2-4 */
+    grid-area: 3 / 3 / 8 / 8; 
+    
+    /* Specific Photo Styles */
+    max-width: 100%; 
+    
+    width: 550px; 
+    height: 700px;
+    
+    object-fit: contain; 
+    background-color: #55459e;
+    
+    border-radius: 12px; /* Use a soft rectangular border */
+    
+    border: 8px solid #55459e; 
+    
+    margin: 0;
+    display: block;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Message Container Positioning (Across the whole 3x3 grid) */
+.message-container {
+    
+    grid-area: 1 / 1 / -1 / -1; 
+    
+    
+    display: grid; /* Allows children to be placed directly in the .central-content grid */
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    gap: 5px;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+/* Individual Message Card Styling */
+.message-container p {
+    /* New Button Appearance */
+    background-color: #ffd700; /* Gold */
+    color: #4b0082; /* Dark Violet/Indigo text for contrast */
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 1.2;
+
+    /* Make it small and round */
+    width: 80px; /* Fixed small size */
+    height: 80px; /* Fixed small size */
+    border-radius: 50%; /* Make it perfectly round */
+    display: flex; /* Use Flexbox to center text vertically */
+    align-items: center; 
+    justify-content: center;
+    
+    /* Remove previous card/border styles */
+    padding: 5px; 
+    border: 4px solid #f6d365; /* Lighter gold border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); 
+    min-height: unset; /* Remove min-height */
+
+    cursor: pointer; /* Indicate it's clickable */
+    transition: all 0.2s ease-in-out;
+}
+
+
+.message-container p:nth-child(1) { grid-area: 1 / 1; }
+
+.message-container p:nth-child(3) { grid-area: 1 / 5; }
+.message-container p:nth-child(4) { grid-area: 1 / 7; }
+.message-container p:nth-child(5) { grid-area: 1 / 9; }
+.message-container p:nth-child(6) { grid-area: 2 / 2; }
+.message-container p:nth-child(7) { grid-area: 2 / 4; }
+.message-container p:nth-child(8) { grid-area: 2 / 6; }
+.message-container p:nth-child(9) { grid-area: 2 / 8; }
+
+/* Items 10-18: Across the sides (Rows 3, 4, 5, 6, 7) */
+.message-container p:nth-child(10) { grid-area: 3 / 1; }
+.message-container p:nth-child(11) { grid-area: 3 / 9; }
+.message-container p:nth-child(12) { grid-area: 4 / 2; }
+.message-container p:nth-child(13) { grid-area: 4 / 8; }
+.message-container p:nth-child(14) { grid-area: 5 / 1; }
+.message-container p:nth-child(15) { grid-area: 5 / 9; }
+.message-container p:nth-child(16) { grid-area: 6 / 2; }
+.message-container p:nth-child(17) { grid-area: 6 / 8; }
+.message-container p:nth-child(18) { grid-area: 7 / 1; }
+
+/* The Video Card (Assuming it's item 19 in the HTML flow now, after message 18) */
+.video-card { grid-area: 1 / 3; }
+
+/* Items 20-30: Across the bottom two rows (8 & 9) and filling remaining side slots */
+.message-container p:nth-child(19) { grid-area: 7 / 9; } /* This spot is taken by the video card. Let's shift it. */
+
+
+/* Resuming message placement */
+
+.message-container p:nth-child(20) { grid-area: 8 / 2; } /* Bottom of the left side */
+.message-container p:nth-child(21) { grid-area: 8 / 4; }
+.message-container p:nth-child(22) { grid-area: 8 / 6; }
+.message-container p:nth-child(23) { grid-area: 8 / 8; }
+.message-container p:nth-child(24) { grid-area: 9 / 1; }
+.message-container p:nth-child(25) { grid-area: 9 / 3; }
+.message-container p:nth-child(26) { grid-area: 9 / 5; }
+.message-container p:nth-child(27) { grid-area: 9 / 7; }
+.message-container p:nth-child(28) { grid-area: 9 / 9; }
+.message-container p:nth-child(29) { grid-area: 2 / 5; } /* Bottom of the right side */
+
+
+.message-container p:hover {
+    /* Enhanced hover effect for a button */
+    transform: scale(1.1) translateY(-2px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    background-color: #ffc72c; /* Slightly darker gold on hover */
+}
+
+/* --- Responsive Layout (Media Queries) --- */
+
+@media (max-width: 1000px) {
+    /* On smaller desktops/tablets, collapse the main grid to a single column */
+    body {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto 1fr auto; /* More rows for stacking */
+        height: auto; /* Allow scrolling freely */
+    }
+    header {
+        grid-row: 1;
+    }
+    video {
+        grid-row: 2;
+        grid-column: 1;
+        max-width: 600px;
+        width: 90%;
+        margin: 20px auto;
+    }
+    .central-content {
+        grid-row: 4; /* Place main content block in the flow */
+        grid-column: 1;
+        /* Revert to stacking messages below the photo for smaller screens */
+        display: block;
+        padding: 20px 0;
+        margin: 0 auto;
+        max-width: 600px;
+        background-color: transparent;
+    }
+    .central-content img {
+        display: block;
+        margin: 20px auto;
+        width: 200px;
+        height: 200px;
+        grid-area: unset; 
+    }
+    .message-container {
+        /* Revert message container to a standard 2-column layout */
+        grid-area: unset;
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 15px;
+        padding: 20px;
+    }
+    .birthday-song {
+        grid-row: 5;
+        grid-column: 1;
+        margin: 30px auto;
+    }
+}
+
+
+@media (max-width: 500px) {
+    .message-container {
+        /* Collapse to a single column on mobile phones */
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+    .main-heading {
+        font-size: 12vw;
+        letter-spacing: 3px;
+    }
+}
